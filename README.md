@@ -2,6 +2,14 @@
 
 #Notes
 
+Do I store the data, or use the CGI api for every request?
+
+
+
+
+
+
+
 Heading	# H1
 ## H2
 ### H3
