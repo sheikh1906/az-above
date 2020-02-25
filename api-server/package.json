@@ -1,5 +1,5 @@
 {
-  "name": "api-server",
+  "name": "az-above-api-server",
   "version": "1.0.0",
   "description": "AzAbove API api-server project",
   "main": "server.js",
@@ -8,5 +8,12 @@
     "start": "nodemon ./src/server.js"
   },
   "author": "Sheikh Rahman",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {},
+  "keywords": [
+    "rest",
+    "api",
+    "server"
+  ]
 }
