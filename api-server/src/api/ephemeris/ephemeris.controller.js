@@ -1,6 +1,5 @@
-import Ephemeris from './ephemeris';
-
-import JPLHorizonsService from '../../services/jpl-horizons';
+const JPLHorizonsService = require('../../services/jpl-horizons');
+const Ephemeris = require('./ephemeris');
 
 const solarSystemBodies = ["Sun", "Moon", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"];
 
