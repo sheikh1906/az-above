@@ -1,10 +1,4 @@
 
-const JplHorizonsService = {
-    getFullSolEphemerisForToday
-};
-
-
-
 const JplCelestialBodies = {
     Sun: "10",
     Moon: "301",
@@ -39,7 +33,7 @@ generateJplRequestUri = (celestialBody, startDate, stopDate, selectFieldCodes) =
     // https://ssd.jpl.nasa.gov/horizons_batch.cgi?batch=1&COMMAND=%27301%27&MAKE_EPHEM=%27YES%27&TABLE_TYPE=%27OBSERVER%27&START_TIME=%272020-02-24%27&STOP_TIME=%272020-02-25%27&STEP_SIZE=%271%20d%27&QUANTITIES=%271,9,20,23,24%27&CSV_FORMAT=%27YES%27
 }
 
-getFullSolEphemerisForToday = (celestialBody) => {
+getFullSolEphemerisForToday = async (celestialBody) => {
 
     let today = new Date();
     let tomorrow = new Date(today);
@@ -49,20 +43,20 @@ getFullSolEphemerisForToday = (celestialBody) => {
 
     let url = generateJplRequestUri(JplCelestialBodies[celestialBody], todayStr, tomorrowStr, "1,9,20,23,24");
 
-    return fetch(url, { 
-        method: 'GET',
-        headers: { 'Accept': 'text/html' }
-    })
-    .then(response => {
-
+    try {
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: { 'Accept': 'text/html' }
+        });
         let cs_data = response.split("$$SOE")[1];
         cs_data = cs_data.split("$$EOE")[0];
         return cs_data;
-
-    })
-    .catch(error => {
+    }
+    catch (error) {
         console.log(error);
-    });
+    }
 }
 
-module.exports = JplHorizonsService;
+module.exports = {
+    getFullSolEphemerisForToday
+};

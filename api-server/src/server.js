@@ -1,6 +1,9 @@
+const http = require('http');
 const app = require('./app');
 const port = process.env.PORT || 5000;
 
-var server = app.listen(port, function(){});
+const server = http.createServer(app);
+
+server.listen(port);
 
 console.log('Az Above API Server started on port: ' + port);
