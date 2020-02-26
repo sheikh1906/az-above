@@ -1,5 +1,5 @@
 const JPLHorizonsService = require('../../services/jpl-horizons');
-const Ephemeris = require('./ephemeris');
+const Ephemeris = require('./model');
 
 const solarSystemBodies = ["Sun", "Moon", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"];
 

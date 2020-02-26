@@ -6,7 +6,11 @@ Do I store the data, or use the CGI api for every request?
 
 
 
+# Challenges
 
+Using an element of an array as an object property name
+https://stackoverflow.com/questions/28720507/setting-an-array-element-as-an-object-property/28720591#28720591
+https://stackoverflow.com/questions/2274242/how-to-use-a-variable-for-a-key-in-a-javascript-object-literal
 
 
 

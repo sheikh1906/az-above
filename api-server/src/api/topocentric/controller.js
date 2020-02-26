@@ -1,0 +1,6 @@
+
+getAzimuthAndAltitudeForLocationAndTime = () => {}
+
+module.exports = {
+    getAzimuthAndAltitudeForLocationAndTime
+};

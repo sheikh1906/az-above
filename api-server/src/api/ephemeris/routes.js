@@ -1,6 +1,6 @@
 const express = require('express');
 const Router = express.Router();
-const Ephemeris = require('./ephemeris.controller');
+const Ephemeris = require('./controller');
 
 Router.route('/')
 .get((req, res, next) => {
