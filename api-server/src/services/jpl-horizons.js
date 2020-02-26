@@ -1,4 +1,6 @@
 
+const fetch = require('node-fetch');
+
 const JplCelestialBodies = {
     Sun: "10",
     Moon: "301",
@@ -44,13 +46,25 @@ getFullSolEphemerisForToday = async (celestialBody) => {
     let url = generateJplRequestUri(JplCelestialBodies[celestialBody], todayStr, tomorrowStr, "1,9,20,23,24");
 
     try {
-        const response = await fetch(url, {
+        const resp = await fetch(url, {
             method: 'GET',
             headers: { 'Accept': 'text/html' }
         });
-        let cs_data = response.split("$$SOE")[1];
-        cs_data = cs_data.split("$$EOE")[0];
-        return cs_data;
+
+        let data = await resp.text();
+
+        return (data.split("$$SOE")[1]).split("$$EOE")[0];
+
+        // console.log(ephemeris);
+        
+        // .then(response => {
+        //     console.log(response);
+        //    // let cs_data = response.text.split("$$SOE")[1];
+        //     //cs_data = cs_data.split("$$EOE")[0];
+        //     //console.log(cs_data);
+        //     //return cs_data;
+        // });
+
     }
     catch (error) {
         console.log(error);

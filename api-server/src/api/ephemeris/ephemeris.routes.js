@@ -4,9 +4,12 @@ const Ephemeris = require('./ephemeris.controller');
 
 Router.route('/')
 .get((req, res, next) => {
-    res
-    .status(200)
-    .json(Ephemeris.getFullEphemerisForSolarSystem());
+    Ephemeris.getFullEphemerisForSolarSystem().then(result => {
+        res
+        .status(200)
+        .json(result);
+    });
+
 })
 .post((req, res, next) => {
 

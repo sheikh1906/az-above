@@ -4,7 +4,7 @@ const Ephemeris = require('./ephemeris');
 const solarSystemBodies = ["Sun", "Moon", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"];
 
 getFullEphemerisForSolarSystem = () => {
-
+    
     ephemerisArray = [];
     promiseArray = [];
 
@@ -12,13 +12,17 @@ getFullEphemerisForSolarSystem = () => {
             promiseArray.push(
                 JPLHorizonsService.getFullSolEphemerisForToday(element)
                 .then(eData => {
-                    ephemerisArray.push({ element : eData });
+                    ephemerisArray.push({ [element] : eData });
                 })
             );
     });
 
-    Promise.all(promiseArray)
+    return Promise.all(promiseArray)
     .then((result) =>{        
         return ephemerisArray;
     });
 }
+
+module.exports = {
+    getFullEphemerisForSolarSystem
+};
