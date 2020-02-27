@@ -19,6 +19,14 @@ https://stackoverflow.com/questions/2274242/how-to-use-a-variable-for-a-key-in-a
 Cron Jobs in Node
 https://hn.werick.codes/how-to-create-and-run-cron-jobs-in-node-cjyrcodoz002rohs123glj09y
 
+https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-18-04#step-6-%E2%80%93-getting-familiar-with-important-nginx-files-and-directories
+
+https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04
+
+https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04
+
+
+
 
 Heading	# H1
 ## H2
