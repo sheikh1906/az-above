@@ -35,13 +35,15 @@ generateJplRequestUri = (celestialBody, startDate, stopDate, selectFieldCodes) =
     // https://ssd.jpl.nasa.gov/horizons_batch.cgi?batch=1&COMMAND=%27301%27&MAKE_EPHEM=%27YES%27&TABLE_TYPE=%27OBSERVER%27&START_TIME=%272020-02-24%27&STOP_TIME=%272020-02-25%27&STEP_SIZE=%271%20d%27&QUANTITIES=%271,9,20,23,24%27&CSV_FORMAT=%27YES%27
 }
 
-getFullSolEphemerisForToday = async (celestialBody) => {
+getFullSolEphemeris = async (celestialBody, date) => {
 
-    let today = new Date();
+    let todayStr, tomorrowStr = "";
+
+    let today = date ? new Date(date) : new Date();
     let tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
-    let todayStr = today.toISOString().split('T')[0];
-    let tomorrowStr = tomorrow.toISOString().split('T')[0];
+    todayStr = today.toISOString().split('T')[0];
+    tomorrowStr = tomorrow.toISOString().split('T')[0];
 
     let url = generateJplRequestUri(JplCelestialBodies[celestialBody], todayStr, tomorrowStr, "1,9,20,23,24");
 
@@ -53,18 +55,12 @@ getFullSolEphemerisForToday = async (celestialBody) => {
 
         let data = await resp.text();
 
-        return (data.split("$$SOE")[1]).split("$$EOE")[0];
-
-        // console.log(ephemeris);
-        
-        // .then(response => {
-        //     console.log(response);
-        //    // let cs_data = response.text.split("$$SOE")[1];
-        //     //cs_data = cs_data.split("$$EOE")[0];
-        //     //console.log(cs_data);
-        //     //return cs_data;
-        // });
-
+        if (data && data.length > 0){
+            return (data.split("$$SOE")[1]).split("$$EOE")[0];
+        }
+        else {
+            return "NO DATA";
+        }
     }
     catch (error) {
         console.log(error);
@@ -72,5 +68,5 @@ getFullSolEphemerisForToday = async (celestialBody) => {
 }
 
 module.exports = {
-    getFullSolEphemerisForToday
+    getFullSolEphemeris
 };

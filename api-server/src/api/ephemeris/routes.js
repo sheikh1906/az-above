@@ -10,9 +10,16 @@ Router.route('/')
         .json(result);
     });
 
-})
-.post((req, res, next) => {
+});
 
-})
+Router.route('/:date')
+.get((req, res, next) => {
+    Ephemeris.getFullEphemerisForSolarSystem(req.params.date).then(result => {
+        res
+        .status(200)
+        .json(result);
+    });
+
+});
 
 module.exports = Router;

@@ -3,14 +3,15 @@ const Ephemeris = require('./model');
 
 const solarSystemBodies = ["Sun", "Moon", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"];
 
-getFullEphemerisForSolarSystem = () => {
+getFullEphemerisForSolarSystem = (date) => {
     
+    let dateString = date || null;
     ephemerisArray = [];
     promiseArray = [];
 
     solarSystemBodies.forEach(element => {
             promiseArray.push(
-                JPLHorizonsService.getFullSolEphemerisForToday(element)
+                JPLHorizonsService.getFullSolEphemeris(element, dateString)
                 .then(eData => {
                     ephemerisArray.push({ [element] : eData });
                 })
