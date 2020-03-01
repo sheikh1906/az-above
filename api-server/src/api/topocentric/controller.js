@@ -1,3 +1,5 @@
+const j2000 = require('../../services/j2000Converter');
+
 toDegrees = (radians) => {
     return radians * (180 / Math.PI);
 }
@@ -6,14 +8,26 @@ toRadians = (degrees) => {
     return degrees * (Math.PI / 180);
 }
 
+getSiderealTime = () => {
+    // ' returns siderial time at longitude zero given days
+// ' after J2000.0
+// Function gst(days As Double) As Double
+// Dim T As Double
+    let days = j2000.dateToJ2000();
+    let T = days / 36525
+    let gst = 280.46061837 + 360.98564736629 * days
+    gst = gst + 0.000387933 * T ^ 2 - T ^ 3 / 38710000
+    gst = range360(gst)
+}
+
 getAzimuthAndAltitudeForLocationAndTime = (RA, DEC, GLat, GLong) => {
 
     let az, alt = null;
-    h = gst(d) + GLong - RA;
-    sa = Math.sin(toRadians(DEC)) * Math.sin(toRadians(GLat));
+    let h = gst(d) + GLong - RA;
+    let sa = Math.sin(toRadians(DEC)) * Math.sin(toRadians(GLat));
     sa = sa + Math.cos(toRadians(DEC)) * Math.cos(toRadians(GLat)) * Math.cos(toRadians(h));
-    a = Math.asin(sa);
-    cz = Math.sin(toRadians(DEC)) - Math.sin(toRadians(GLat)) * sa;
+    let a = Math.asin(sa);
+    let cz = Math.sin(toRadians(DEC)) - Math.sin(toRadians(GLat)) * sa;
     cz = cz / (Math.cos(toRadians(GLat)) * Math.cos(toRadians(a)));
 
     az = toDegrees(a);
