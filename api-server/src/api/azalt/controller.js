@@ -1,4 +1,4 @@
-const geotopoconverter = require('radectoaltaz');
+const geotopoconverter = require('../../services/radectoaltaz');
 
 getAzimuthAndAltitudeForLocationAndTime = (ra, dec, lat, lng) => {
 
