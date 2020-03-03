@@ -19,7 +19,8 @@
     "express": "^4.17.1",
     "gregorian-calendar": "^4.1.6",
     "local-sidereal-time": "^1.0.4",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "radectoaltaz": "^1.0.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
