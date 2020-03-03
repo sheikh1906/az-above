@@ -35,6 +35,59 @@ generateJplRequestUri = (celestialBody, startDate, stopDate, selectFieldCodes) =
     // https://ssd.jpl.nasa.gov/horizons_batch.cgi?batch=1&COMMAND=%27301%27&MAKE_EPHEM=%27YES%27&TABLE_TYPE=%27OBSERVER%27&START_TIME=%272020-02-24%27&STOP_TIME=%272020-02-25%27&STEP_SIZE=%271%20d%27&QUANTITIES=%271,9,20,23,24%27&CSV_FORMAT=%27YES%27
 }
 
+parseEphemerisFile = (eFile) => {
+    // console.log(eFile);
+    let ephArray = eFile.split('\n');
+    let headersArray = [];
+    let dataArray = [];
+    let ephemeris = {};
+    let data = false;
+
+    for(let i = 0; i < ephArray.length; i++) {
+
+        let element = ephArray[i];
+        // console.log(element);
+
+        // PARSE HEADERS
+        if(element.trim().startsWith("Date")){
+            let headerArray = element.split(',').map(item => item.trim());
+            headerArray.forEach(header => {
+                if (header.length > 0){
+                    // console.log(header);
+                    headersArray.push(header);
+                }
+            });
+        }
+        if(element.startsWith("$$SOE")){
+            data = true;
+            continue;
+        }
+        if(data){
+            let infoArray = element.split(',').map(item => item.trim());
+            infoArray.forEach(datum => {
+                if(datum.length > 0){
+                    // console.log(datum);
+                    dataArray.push(datum);
+                }
+            });
+            data = false;
+        }
+        if(element.startsWith("$$EOE")){
+            break;
+        }
+    }
+
+    if(headersArray.length == dataArray.length){
+        headersArray.forEach((hdr,index) => {
+            ephemeris[hdr] = dataArray[index];
+        });
+        return ephemeris;
+    }
+    else {
+        return "ERROR";
+    }
+}
+
 getFullSolEphemeris = async (celestialBody, date) => {
 
     let todayStr, tomorrowStr = "";
@@ -56,7 +109,7 @@ getFullSolEphemeris = async (celestialBody, date) => {
         let data = await resp.text();
 
         if (data && data.length > 0){
-            return (data.split("$$SOE")[1]).split("$$EOE")[0];
+            return parseEphemerisFile((data.split("Comma Separated Values (spreadsheet)")[1]).split("Column meaning:")[0]);
         }
         else {
             return "NO DATA";
