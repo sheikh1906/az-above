@@ -13,7 +13,7 @@ getFullEphemerisForSolarSystem = (date) => {
             promiseArray.push(
                 JPLHorizonsService.getFullSolEphemeris(element, dateString)
                 .then(eData => {
-                    ephemerisArray.push({ [element] : eData });
+                    ephemerisArray.push(eData);
                 })
             );
     });
