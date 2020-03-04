@@ -124,7 +124,7 @@ getFullSolEphemeris = async (celestialBody, date) => {
         let data = await resp.text();
 
         if (data && data.length > 0){
-            console.log(celestialBody);
+            // console.log(celestialBody);
             return parseEphemerisFile(celestialBody, (data.split("Comma Separated Values (spreadsheet)")[1]).split("Column meaning:")[0]);
         }
         else {
