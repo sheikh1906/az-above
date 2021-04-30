@@ -6,22 +6,20 @@
  * @flow
  */
 
-import React from 'react';
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack'; 
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
 
 import SkymapScreen from './src/skymap/SkymapScreen';
 import SplashScreen from './src/startup/SplashScreen';
 
-
 const App = createStackNavigator(
   {
-      Splash: { screen: SplashScreen },
-      Skymap: { screen: SkymapScreen }
+    Splash: {screen: SplashScreen},
+    Skymap: {screen: SkymapScreen},
   },
   {
-    initialRouteName: 'Splash'
-  }
+    initialRouteName: 'Splash',
+  },
 );
 
 export default createAppContainer(App);
